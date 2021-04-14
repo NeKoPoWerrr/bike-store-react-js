@@ -8,6 +8,9 @@
     "@craco/craco": "^6.1.1",
     "@material-ui/core": "4.10.0",
     "@material-ui/icons": "4.9.1",
+    "@types/googlemaps": "3.39.6",
+    "@types/markerclustererplus": "2.1.33",
+    "ajv": "6.12.2",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
     "history": "4.10.1",
@@ -19,7 +22,8 @@
     "react-google-maps": "9.4.5",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "react-swipeable-views": "0.13.9"
+    "react-swipeable-views": "0.13.9",
+    "typescript": "3.9.3"
   },
   "scripts": {
     "start": "craco start",
