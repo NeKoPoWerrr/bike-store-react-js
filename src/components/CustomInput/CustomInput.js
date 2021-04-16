@@ -23,7 +23,8 @@ export default function CustomInput(props) {
     labelProps,
     inputProps,
     error,
-    success
+    success,
+    style,
   } = props;
 
   const labelClasses = classNames({
@@ -42,6 +43,7 @@ export default function CustomInput(props) {
     <FormControl
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
+      style={style}
     >
       {labelText !== undefined ? (
         <InputLabel
