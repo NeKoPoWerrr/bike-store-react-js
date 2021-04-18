@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -13,14 +13,14 @@ import {
 } from "@material-ui/core";
 import Pagination from '@material-ui/lab/Pagination';
 import { Edit, Clear, Check, Delete } from "@material-ui/icons";
-
 import Api from "@/services/api";
 import { useCustomState } from "@/hooks";
-
 import tableStyles from "@/assets/jss/material-dashboard-react/components/tableStyle.js";
-
 import ObjectUtils from "@/utils/objectUtils";
 import { SUCCESS_CODE } from "@/services/api/base/apiResponseCode";
+import Button from "@/components/CustomButtons/Button.js";
+import CreateBrands from './CreateBrands.js';
+
 
 const styles = {
   cardCategoryWhite: {
@@ -152,9 +152,13 @@ const Brands = () => {
       currEditBrandTempName: undefined, 
     });
   }
+;
+  
+  
 
   return (
     <div>
+      {console.log("this page rendered")}
       <Card>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Brands</h4>
@@ -162,6 +166,7 @@ const Brands = () => {
             Maintain brands of products
           </p>
         </CardHeader>
+        <CreateBrands />
         <CardBody>
           <div className={tableClasses.tableResponsive}>
             <Table>
