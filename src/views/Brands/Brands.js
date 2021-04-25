@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -64,7 +64,9 @@ const useTableStyles = makeStyles(tableStyles);
 const Brands = () => {
   const classes = useStyles();
   const tableClasses = useTableStyles();
-
+  const [addbrand, setBrandState] = useState({
+    id:'',name:'',isdeleted:''
+  })
   const [state, setState] = useCustomState({
     brands: [],
     currEditBrandId: undefined,
@@ -125,6 +127,21 @@ const Brands = () => {
     }
   }
 
+  const onBrandCreate = async(addbrand) =>{
+    // try{
+    //   const res = await Api.apiCreateBrand(addbrand.id,addbrand,addbrand.isdeleted);
+    //   if(res.code === SUCCESS_CODE){
+        setBrandState([
+          addbrand
+        ])
+        console.log(brand)
+        //loadPage();
+      // }
+    // }catch(error){
+    //   console.error(error);
+    // }
+  }
+
   const onBrandDelete = async(brand) => {
     try {
       const res = await Api.apiDeleteBrand(brand.id);
@@ -158,7 +175,7 @@ const Brands = () => {
 
   return (
     <div>
-      {console.log("this page rendered")}
+      {console.log("this page rendered",state,addbrand)}
       <Card>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Brands</h4>
@@ -166,7 +183,7 @@ const Brands = () => {
             Maintain brands of products
           </p>
         </CardHeader>
-        <CreateBrands />
+        <CreateBrands onBrandCreate={onBrandCreate}/>
         <CardBody>
           <div className={tableClasses.tableResponsive}>
             <Table>
