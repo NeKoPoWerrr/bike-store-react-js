@@ -64,9 +64,6 @@ const useTableStyles = makeStyles(tableStyles);
 const Brands = () => {
   const classes = useStyles();
   const tableClasses = useTableStyles();
-  const [addbrand, setBrandState] = useState({
-    id:'',name:'',isdeleted:''
-  })
   const [state, setState] = useCustomState({
     brands: [],
     currEditBrandId: undefined,
@@ -85,7 +82,7 @@ const Brands = () => {
       const { page, size } = state.pageInfo;
       const params = { page, size };
       const res = await Api.apiFindBrands(params);
-
+      
       const result = ObjectUtils.convertToCamelNaming(res.result);
       const brands = result.data || [];
       const pageInfo = result.pageInfo;
@@ -127,19 +124,18 @@ const Brands = () => {
     }
   }
 
-  const onBrandCreate = async(addbrand) =>{
-    // try{
-    //   const res = await Api.apiCreateBrand(addbrand.id,addbrand,addbrand.isdeleted);
-    //   if(res.code === SUCCESS_CODE){
-        setBrandState([
-          addbrand
-        ])
-        console.log(brand)
-        //loadPage();
-      // }
-    // }catch(error){
-    //   console.error(error);
-    // }
+  const onBrandCreate = async(props) =>{
+    const brandName = {name : props};
+    try {
+      console.log("brand", brandName);
+      const res = await Api.apiCreateBrand(brandName);
+      if(res.code === SUCCESS_CODE){
+
+        loadPage();
+      }
+    }catch(error){
+      console.error(error);
+    }
   }
 
   const onBrandDelete = async(brand) => {
@@ -175,7 +171,7 @@ const Brands = () => {
 
   return (
     <div>
-      {console.log("this page rendered",state,addbrand)}
+      {console.log("this page rendered")}
       <Card>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Brands</h4>

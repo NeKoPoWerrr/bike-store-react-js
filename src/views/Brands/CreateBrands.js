@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from "@/components/CustomButtons/Button.js";
 
 const CreateBrand = (props) => {
-    const [Brandid, setBrandid] = useState('');
+    const [brandID, setBrandid] = useState('');
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -22,8 +22,9 @@ const CreateBrand = (props) => {
         setOpen(false);
     };
     
-    const handleSave = (Brandid) =>{
-        props.onBrandCreate(Brandid);
+    const handleSave = () =>{
+        console.log("here is brandid",brandID)
+        props.onBrandCreate(brandID);
         setOpen(false);
     }
 
@@ -51,11 +52,11 @@ const CreateBrand = (props) => {
                 <TextField
                   autoFocus
                   margin="dense"
-                  name="Brandid"
+                  name="brandID"
                   label="品牌名稱"
                   type="text"
                   onChange={handleInputChange}
-                  value={Brandid}
+                  value={brandID}
                   fullWidth
                 />
             </DialogContent>
