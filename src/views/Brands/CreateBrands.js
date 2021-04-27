@@ -6,6 +6,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from "@/components/CustomButtons/Button.js";
+import "./CreateBrand.css";
 
 const CreateBrand = (props) => {
     const [brandID, setBrandid] = useState('');
@@ -31,11 +32,12 @@ const CreateBrand = (props) => {
 
     return (
     <>
-      <div width="100px" >
+      <div className="createcontainer">
         <Button 
           color="primary"
           round
           onClick={handleClickOpen}
+          // style = {{float:"right"}}
         >
           新增品牌
         </Button>

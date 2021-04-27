@@ -253,6 +253,7 @@ const Brands = () => {
                           <Edit />
                         </IconButton>
                         <IconButton
+                          color="secondary"
                           aria-label="Delete"
                           onClick={() => onBrandDelete(brand)}
                         >
