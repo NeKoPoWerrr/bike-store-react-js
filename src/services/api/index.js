@@ -50,6 +50,28 @@ const apiFindProducts = (data) => apiWrapper(() => {
   return getBaseAuthRequest().get(`/products${query}`);
 })
 
+//categories
+const apiCreateCategory = (data) => apiWrapper(() => {
+  return getBaseAuthRequest().post(`/category/create`, data);
+})
+
+const apiDeleteCategory = (categoryId) => apiWrapper(() => {
+  return getBaseAuthRequest().post(`/category/delete/${categoryId}`);
+})
+
+const apiUpdateCategory = (categoryId, data) => apiWrapper(() => {
+  return getBaseAuthRequest().post(`/category/update/${categoryId}`, data);
+})
+
+const apiGetCategoryById = (categoryId) => apiWrapper(() => {
+  return getBaseAuthRequest().get(`/category/${categoryId}`);
+})
+
+const apiFindCategory = (data) => apiWrapper(() => {
+  let query = objectToQueryParams(data);
+  return getBaseAuthRequest().get(`/categories${query}`);
+})
+
 export default {
   // Login
   apiCustomerLogin,
@@ -67,4 +89,11 @@ export default {
   apiUpdateProduct,
   apiGetProductById,
   apiFindProducts,
+
+  //Category
+  apiCreateCategory,
+  apiDeleteCategory,
+  apiUpdateCategory,
+  apiGetCategoryById,
+  apiFindCategory,
 };

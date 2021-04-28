@@ -26,6 +26,8 @@ import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
+import CategoryPage from "@/views/Category/Category.js"
+import ProductsPage from "@/views/Products/Products.js"
 import BrandsPage from "@/views/Brands/Brands.js";
 import DashboardPage from "@/views/Dashboard/Dashboard.js";
 import UserProfile from "@/views/UserProfile/UserProfile.js";
@@ -46,6 +48,22 @@ const dashboardRoutes = [
     icon: Star,
     component: BrandsPage,
     layout: "/admin"
+  },
+  {
+    path: "/category",
+    name:"Category",
+    rtlName:"種類",
+    icon: Star,
+    component: CategoryPage,
+    layout:"/admin"
+  },
+  {
+    path: "/products",
+    name:"Product",
+    rtlName:"產品",
+    icon: Star,
+    component: ProductsPage,
+    layout:"/admin"
   },
   {
     path: "/dashboard",
