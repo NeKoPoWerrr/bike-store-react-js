@@ -179,7 +179,9 @@ const Brands = () => {
             Maintain brands of products
           </p>
         </CardHeader>
-        <CreateBrands onBrandCreate={onBrandCreate}/>
+        <CreateBrands 
+          onBrandCreate={onBrandCreate}
+        />
         <CardBody>
           <div className={tableClasses.tableResponsive}>
             <Table>

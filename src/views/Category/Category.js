@@ -19,6 +19,7 @@ import tableStyles from "@/assets/jss/material-dashboard-react/components/tableS
 import ObjectUtils from "@/utils/objectUtils";
 import { SUCCESS_CODE } from "@/services/api/base/apiResponseCode";
 import Button from "@/components/CustomButtons/Button.js";
+import CreateCategory from './CreateCategory.js'
 
 
 const styles = {
@@ -64,9 +65,9 @@ const Category = () => {
   const classes = useStyles();
   const tableClasses = useTableStyles();
   const [state, setState] = useCustomState({
-    products: [],
-    currEditProductId: undefined,
-    currEditProductTempName: undefined,
+    categories: [],
+    currEditCategoryId: undefined,
+    currEditCategoryTempName: undefined,
     pageInfo: {
       size: 5,
       page: 0,
@@ -83,11 +84,11 @@ const Category = () => {
       const res = await Api.apiFindCategory(params);
       console.log("res",res);
       const result = ObjectUtils.convertToCamelNaming(res.result);
-      const products = result.data || [];
+      const categories = result.data || [];
       const pageInfo = result.pageInfo;
 
       setState({
-        products, pageInfo,
+        categories, pageInfo,
       });
       console.log("state",state);
     } catch (error) {
@@ -99,24 +100,24 @@ const Category = () => {
     loadPage();
   }, [ state.pageInfo.page, state.pageInfo.size ]);
 
-  const onProductsEdit = (product) => {
+  const onCategorysEdit = (category) => {
     setState({ 
-      currEditProductId: product.id,
-      currEditProductTempName: product.name,
+      currEditCategoryId: category.id,
+      currEditCategoryTempName: category.name,
     });
   }
 
-  const onProductsSave = async(product) => {
+  const onCategorysSave = async(category) => {
     try {
-      const payload = { name: state.currEditProductTempName };
-      const res = await Api.apiUpdateProduct(product.id, payload);
+      const payload = { name: state.currEditCategoryTempName };
+      const res = await Api.apiUpdateCategory(category.id, payload);
       if (res.code === SUCCESS_CODE) {
-        const { products } = state;
-        products.filter((p) => p.id === product.id)[0].name = state.currEditProductTempName;
+        const { categories } = state;
+        categories.filter((c) => c.id === category.id)[0].name = state.currEditCategoryTempName;
         setState({
-          products,
-          currEditProductId: undefined,
-          currEditProductTempName: undefined,
+          categories,
+          currEditCategoryId: undefined,
+          currEditCategoryTempName: undefined,
         });
       }
     } catch (error) {
@@ -124,11 +125,11 @@ const Category = () => {
     }
   }
 
-  const onProductsCreate = async(props) =>{
-    const productName = {name : props};
+  const onCategorysCreate = async(props) =>{
+    const categoryName = {name : props};
     try {
-      console.log("product", productName);
-      const res = await Api.apiCreateProducts(productName);
+      console.log("category", categoryName);
+      const res = await Api.apiCreateCategory(categoryName);
       if(res.code === SUCCESS_CODE){
 
         loadPage();
@@ -138,9 +139,9 @@ const Category = () => {
     }
   }
 
-  const onProductsDelete = async(product) => {
+  const onCategorysDelete = async(category) => {
     try {
-      const res = await Api.apiDeleteProduct(product.id);
+      const res = await Api.apiDeleteCategory(category.id);
       if (res.code === SUCCESS_CODE) {
         loadPage();
       }
@@ -151,8 +152,8 @@ const Category = () => {
 
   const onCancel = () => {
     setState({
-      currEditProductId: undefined,
-      currEditProductTempName: undefined,
+      currEditCategoryId: undefined,
+      currEditCategoryTempName: undefined,
     });
   }
 
@@ -161,8 +162,8 @@ const Category = () => {
     pageInfo.page = value - 1;
     setState({ 
       pageInfo,
-      currEditProductId: undefined,
-      currEditProductTempName: undefined, 
+      currEditCategoryId: undefined,
+      currEditCategoryTempName: undefined, 
     });
   }
 ;
@@ -174,12 +175,12 @@ const Category = () => {
       {console.log("this page rendered")}
       <Card>
         <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Products</h4>
+          <h4 className={classes.cardTitleWhite}>Categorys</h4>
           <p className={classes.cardCategoryWhite}>
-            Maintain brands of products
+            Maintain brands of category
           </p>
         </CardHeader>
-        {/* <CreateProducts onProductsCreate={onProductsCreate}/> */}
+        <CreateCategory onCategorysCreate={onCategorysCreate}/>
         <CardBody>
           <div className={tableClasses.tableResponsive}>
             <Table>
@@ -203,17 +204,17 @@ const Category = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {state.products.length === 0 && <TableRow>
+                {state.categories.length === 0 && <TableRow>
                   <TableCell colSpan={3} style={{ padding: "128px", textAlign: "center" }}>
-                    No Any Product
+                    No Any Category
                   </TableCell>                  
                 </TableRow>}
-                {state.products.map((product, i) => <TableRow key={i}>
+                {state.categories.map((category, i) => <TableRow key={i}>
                   <TableCell className={tableClasses.tableCell}>
-                    {product.id}
+                    {category.id}
                   </TableCell>
                   <TableCell className={tableClasses.tableCell}>
-                    {state.currEditProductId === product.id 
+                    {state.currEditCategoryId === category.id 
                       ? <CustomInput 
                           labelText={undefined}
                           style={{ marginTop: "0px" }}
@@ -221,16 +222,16 @@ const Category = () => {
                             fullWidth: false
                           }}
                           inputProps={{
-                            value: state.currEditProductTempName,
+                            value: state.currEditCategoryTempName,
                             style: { margin: "0px" },
-                            onChange: (e) => setState({ currEditProductTempName: e.target.value }),
+                            onChange: (e) => setState({ currEditCategoryTempName: e.target.value }),
                           }}
                         />
-                      : <>{product.name}</>
+                      : <>{category.name}</>
                     }
                   </TableCell>
                   <TableCell className={tableClasses.tableCell}>
-                    {state.currEditProductId === product.id 
+                    {state.currEditCategoryId === category.id 
                       ? <>
                         <IconButton
                           aria-label="Cancel"
@@ -240,7 +241,7 @@ const Category = () => {
                         </IconButton>
                         <IconButton
                           aria-label="Save"
-                          onClick={() => onProductsSave(product)}
+                          onClick={() => onCategorysSave(category)}
                         >
                           <Check />
                         </IconButton>
@@ -248,14 +249,14 @@ const Category = () => {
                       : <>
                         <IconButton
                           aria-label="Edit"
-                          onClick={() => onProductsEdit(product)}
+                          onClick={() => onCategorysEdit(category)}
                         >
                           <Edit />
                         </IconButton>
                         <IconButton
                           color="secondary"
                           aria-label="Delete"
-                          onClick={() => onProductsDelete(product)}
+                          onClick={() => onCategorysDelete(category)}
                         >
                           <Delete />
                         </IconButton>
