@@ -26,6 +26,7 @@ import Notifications from "@material-ui/icons/Notifications";
 import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
+import CustomersPage from "@/views/Customers/Customers.js"
 import CategoryPage from "@/views/Category/Category.js"
 import ProductsPage from "@/views/Products/Products.js"
 import BrandsPage from "@/views/Brands/Brands.js";
@@ -41,6 +42,14 @@ import UpgradeToPro from "@/views/UpgradeToPro/UpgradeToPro.js";
 import RTLPage from "@/views/RTLPage/RTLPage.js";
 
 const dashboardRoutes = [
+  {
+    path: "/customers",
+    name: "Customers",
+    rtlName: "顧客",
+    icon: Star,
+    component: CustomersPage,
+    layout: "/admin"
+  },
   {
     path: "/brands",
     name: "Brand",

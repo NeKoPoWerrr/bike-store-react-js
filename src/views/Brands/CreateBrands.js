@@ -9,28 +9,29 @@ import Button from "@/components/CustomButtons/Button.js";
 import "./CreateBrand.css";
 
 const CreateBrand = (props) => {
-    const [brandID, setBrandid] = useState('');
-    const [open, setOpen] = useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    console.log("here is props",props);
-    const handleInputChange = (e) => {
-        const { value } = e.target;
-        setBrandid(value);
-      };
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const [brandName, setBrandid] = useState('');
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setBrandid(value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
     
-    const handleSave = () =>{
-        console.log("here is brandid",brandID)
-        props.onBrandCreate(brandID);
-        setOpen(false);
-    }
+  const handleSave = () =>{
+    console.log("here is brandid",brandName)
+    props.onBrandCreate(brandName);
+    setOpen(false);
+  };
 
 
-    return (
+  return (
     <>
       <div className="createcontainer">
         <Button 
@@ -41,38 +42,39 @@ const CreateBrand = (props) => {
         >
           新增品牌
         </Button>
-        </div>
-          <Dialog
-            fullWidth={true}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="max-width-dialog-title">
+      </div>
+        <Dialog
+          fullWidth={true}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="max-width-dialog-title">
             <DialogTitle id="form-dialog-title">
-                請新增品牌
+              請新增品牌
             </DialogTitle>
-            <DialogContent>
+              <DialogContent>
                 <TextField
                   autoFocus
                   margin="dense"
-                  name="brandID"
+                  name="brandName"
                   label="品牌名稱"
                   type="text"
                   onChange={handleInputChange}
-                  value={brandID}
+                  value={brandName}
                   fullWidth
                 />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="danger">
-                  關閉
-          </Button>
-                <Button onClick={handleSave} color="primary">
-                  上傳
-          </Button>
-            </DialogActions>
-        </Dialog>
+             </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="danger">
+                    關閉
+                  </Button>
+                  
+                  <Button onClick={handleSave} color="primary">
+                    上傳
+                  </Button>
+                </DialogActions>
+          </Dialog>
     </>
-    )
+  );
 }
 
 export default CreateBrand;

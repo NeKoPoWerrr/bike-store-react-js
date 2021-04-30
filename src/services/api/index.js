@@ -72,6 +72,20 @@ const apiFindCategory = (data) => apiWrapper(() => {
   return getBaseAuthRequest().get(`/categories${query}`);
 })
 
+//Customers
+const apiUpdateCustomer = (customerId, data) => apiWrapper(() => {
+  return getBaseAuthRequest().post(`/customer/update/${customerId}`, data);
+})
+
+const apiGetCustomerById = (customerId) => apiWrapper(() => {
+  return getBaseAuthRequest().get(`/customer/${customerId}`);
+})
+
+const apiFindCustomers = (data) => apiWrapper(() => {
+  let query = objectToQueryParams(data);
+  return getBaseAuthRequest().get(`/customers${query}`);
+})
+
 export default {
   // Login
   apiCustomerLogin,
@@ -96,4 +110,9 @@ export default {
   apiUpdateCategory,
   apiGetCategoryById,
   apiFindCategory,
+  
+  //Customers
+  apiUpdateCustomer,
+  apiFindCustomers,
+  apiGetCustomerById,
 };

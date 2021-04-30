@@ -82,7 +82,6 @@ const Category = () => {
       const { page, size } = state.pageInfo;
       const params = { page, size };
       const res = await Api.apiFindCategory(params);
-      console.log("res",res);
       const result = ObjectUtils.convertToCamelNaming(res.result);
       const categories = result.data || [];
       const pageInfo = result.pageInfo;
@@ -90,7 +89,6 @@ const Category = () => {
       setState({
         categories, pageInfo,
       });
-      console.log("state",state);
     } catch (error) {
       console.error(error);
     }
@@ -125,18 +123,16 @@ const Category = () => {
     }
   }
 
-  const onCategorysCreate = async(props) =>{
-    const categoryName = {name : props};
-    try {
-      console.log("category", categoryName);
-      const res = await Api.apiCreateCategory(categoryName);
-      if(res.code === SUCCESS_CODE){
-
-        loadPage();
+  const onCategorysCreate = async(categoryName) =>{
+    const inputName = {name : categoryName};
+      try {
+        const res = await Api.apiCreateCategory(inputName);
+          if (res.code === SUCCESS_CODE) {
+            loadPage();
+          }
+      } catch (error) {
+        console.error(error);
       }
-    }catch(error){
-      console.error(error);
-    }
   }
 
   const onCategorysDelete = async(category) => {
@@ -172,10 +168,9 @@ const Category = () => {
 
   return (
     <div>
-      {console.log("this page rendered")}
       <Card>
         <CardHeader color="primary">
-          <h4 className={classes.cardTitleWhite}>Categorys</h4>
+          <h4 className={classes.cardTitleWhite}>Categories</h4>
           <p className={classes.cardCategoryWhite}>
             Maintain brands of category
           </p>
@@ -234,12 +229,14 @@ const Category = () => {
                     {state.currEditCategoryId === category.id 
                       ? <>
                         <IconButton
+                          color="secondary"
                           aria-label="Cancel"
                           onClick={() => onCancel()}
                         >
                           <Clear />
                         </IconButton>
                         <IconButton
+                          style={{color:"green"}}
                           aria-label="Save"
                           onClick={() => onCategorysSave(category)}
                         >
@@ -248,6 +245,7 @@ const Category = () => {
                       </>
                       : <>
                         <IconButton
+                          color="primary"
                           aria-label="Edit"
                           onClick={() => onCategorysEdit(category)}
                         >

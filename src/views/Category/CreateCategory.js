@@ -9,28 +9,29 @@ import Button from "@/components/CustomButtons/Button.js";
 import "./CreateCategory.css";
 
 const CreateCategory = (props) => {
-    const [categoryID, setcategoryiD] = useState('');
-    const [open, setOpen] = useState(false);
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    console.log("here is props",props);
-    const handleInputChange = (e) => {
-        const { value } = e.target;
-        setcategoryiD(value);
-      };
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const [categoryName, setcategoryName] = useState('');
+  const [open, setOpen] = useState(false);
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setcategoryName(value);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
     
-    const handleSave = () =>{
-        console.log("here is categoryID",categoryID)
-        props.onCategorysCreate(categoryID);
-        setOpen(false);
-    }
+  const handleSave = () =>{
+    props.onCategorysCreate(categoryName);
+    setOpen(false);
+  };
 
 
-    return (
+  return (
     <>
       <div className="createcontainer">
         <Button 
@@ -41,38 +42,38 @@ const CreateCategory = (props) => {
         >
           新增種類
         </Button>
-        </div>
-          <Dialog
-            fullWidth={true}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="max-width-dialog-title">
+      </div>
+        <Dialog
+          fullWidth={true}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="max-width-dialog-title">
             <DialogTitle id="form-dialog-title">
-                請新增種類
+              請新增種類
             </DialogTitle>
-            <DialogContent>
+              <DialogContent>
                 <TextField
                   autoFocus
                   margin="dense"
-                  name="categoryID"
+                  name="categoryName"
                   label="種類名稱"
                   type="text"
                   onChange={handleInputChange}
-                  value={categoryID}
+                  value={categoryName}
                   fullWidth
                 />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="danger">
-                  關閉
-          </Button>
-                <Button onClick={handleSave} color="primary">
-                  上傳
-          </Button>
-            </DialogActions>
-        </Dialog>
+                  </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="danger">
+                        關閉
+                      </Button>
+                      <Button onClick={handleSave} color="primary">
+                        上傳
+                      </Button>
+                    </DialogActions>
+          </Dialog>
     </>
-    )
+  );
 }
 
 export default CreateCategory;

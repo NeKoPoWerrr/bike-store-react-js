@@ -124,18 +124,16 @@ const Brands = () => {
     }
   }
 
-  const onBrandCreate = async(props) =>{
-    const brandName = {name : props};
-    try {
-      console.log("brand", brandName);
-      const res = await Api.apiCreateBrand(brandName);
-      if(res.code === SUCCESS_CODE){
-
-        loadPage();
+  const onBrandCreate = async(brandName) => {
+    const InputName = {name : brandName};
+      try {
+        const res = await Api.apiCreateBrand(InputName);
+          if (res.code === SUCCESS_CODE) {
+            loadPage();
+          }
+      } catch (error) {
+        console.error(error);
       }
-    }catch(error){
-      console.error(error);
-    }
   }
 
   const onBrandDelete = async(brand) => {
@@ -171,7 +169,6 @@ const Brands = () => {
 
   return (
     <div>
-      {console.log("this page rendered")}
       <Card>
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Brands</h4>
@@ -235,12 +232,14 @@ const Brands = () => {
                     {state.currEditBrandId === brand.id 
                       ? <>
                         <IconButton
+                          color="secondary"
                           aria-label="Cancel"
                           onClick={() => onCancel()}
                         >
                           <Clear />
                         </IconButton>
                         <IconButton
+                          style={{color:"green"}}
                           aria-label="Save"
                           onClick={() => onBrandSave(brand)}
                         >
@@ -249,6 +248,7 @@ const Brands = () => {
                       </>
                       : <>
                         <IconButton
+                          color="primary"
                           aria-label="Edit"
                           onClick={() => onBrandEdit(brand)}
                         >
