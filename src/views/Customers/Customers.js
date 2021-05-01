@@ -71,6 +71,8 @@ const Customers = () => {
   const offlineColor = "#808080";
   const classes = useStyles();
   const tableClasses = useTableStyles();
+  const [profileData, setProfileData] = useState('')
+  const [open, setOpen] = useState(false)
   const [state, setState] = useCustomState({
     customers: [],
     pageInfo: {
@@ -82,12 +84,16 @@ const Customers = () => {
     },
   });
 
+  const handleProfileData = (firstName,lastName) => {
+    setOpen(true);
+    setProfileData(firstName + ' ' + lastName);
+  }
+
   const loadPage = async () => {
     try {
       const { page, size } = state.pageInfo;
       const params = { page, size };
       const res = await Api.apiFindCustomers(params);
-      console.log("res", res);
       const result = ObjectUtils.convertToCamelNaming(res.result);
       const customers = result.data || [];
       const pageInfo = result.pageInfo;
@@ -111,24 +117,25 @@ const Customers = () => {
     setState({
       pageInfo,
     });
-  }
-    ;
+  };
 
 
 
   return (
     <div>
       <Card>
-        <ShowProfile
-          firstName = {state.customers.firstName}
-        />
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Customer</h4>
           <p className={classes.cardCategoryWhite}>
             Maintain brands of customer
           </p>
         </CardHeader>
-        <CardBody>
+       <CardBody>
+        { open ? 
+          <ShowProfile
+            name={profileData}
+            open ={ setOpen }
+          /> : ''}
           <div className={tableClasses.tableResponsive}>
             <Table>
               <TableHead className={tableClasses["primaryTableHeader"]}>
@@ -161,8 +168,9 @@ const Customers = () => {
                   const resBool = randomBool();
                   const onOffColor = resBool ? onlineColor : offlineColor;
                   const onOffDes = resBool ? "上線" : "離線";
+
                   return (
-                    <TableRow key={i}>
+                   <TableRow key={i}>
                       <TableCell className={tableClasses.tableCell}>
                         {customer.id}
                       </TableCell>
@@ -170,18 +178,17 @@ const Customers = () => {
                         {customer.firstName}{' '}{customer.lastName}
                       </TableCell>
                       <TableCell className={tableClasses.tableCell}>
-                        <>
-                        <Tooltip title="個人簡介" placement="buttom" >
+                        <Tooltip title="個人簡介" placement="bottom" arrow>
                           <IconButton
                             color="primary"
+                            onClick = {()=>{handleProfileData(customer.firstName,customer.lastName)}}
                           >
                             <AccountCircleRoundedIcon />
                           </IconButton>
-                        </Tooltip> 
-                        </>
+                        </Tooltip>
                       </TableCell>
                       <TableCell className={tableClasses.tableCell}>
-                      <Tooltip title={ onOffDes } placement="buttom" >
+                      <Tooltip title={ onOffDes } placement="bottom" arrow>
                         <IconButton>
                           <FiberManualRecordIcon
                             style={{ color: onOffColor }}

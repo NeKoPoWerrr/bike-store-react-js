@@ -51,7 +51,7 @@ const CreateCategory = (props) => {
           open={open}
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
-          disableBackdropClick ={true}
+          disableBackdropClick ={false}
           >
             <DialogTitle id="form-dialog-title">
               請新增種類
