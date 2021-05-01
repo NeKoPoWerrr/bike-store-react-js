@@ -23,6 +23,7 @@ import Button from "@/components/CustomButtons/Button.js";
 import ShowProfile from "./ShowProfile";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { Tooltip } from '@material-ui/core';
 
 const styles = {
   cardCategoryWhite: {
@@ -82,7 +83,6 @@ const Customers = () => {
   });
 
   const loadPage = async () => {
-    console.log("123");
     try {
       const { page, size } = state.pageInfo;
       const params = { page, size };
@@ -102,7 +102,7 @@ const Customers = () => {
 
   useEffect(() => {
     loadPage();
-  }, [state.pageInfo.page, state.pageInfo.size, state.online]);
+  }, [state.pageInfo.page, state.pageInfo.size]);
 
 
   const handlePageChange = (event, value) => {
@@ -119,7 +119,9 @@ const Customers = () => {
   return (
     <div>
       <Card>
-        <ShowProfile />
+        <ShowProfile
+          firstName = {state.customers.firstName}
+        />
         <CardHeader color="primary">
           <h4 className={classes.cardTitleWhite}>Customer</h4>
           <p className={classes.cardCategoryWhite}>
@@ -156,7 +158,9 @@ const Customers = () => {
                   </TableCell>
                 </TableRow>}
                 {state.customers.map((customer, i) => {
-                  const onOffColor = randomBool() ? onlineColor : offlineColor;
+                  const resBool = randomBool();
+                  const onOffColor = resBool ? onlineColor : offlineColor;
+                  const onOffDes = resBool ? "上線" : "離線";
                   return (
                     <TableRow key={i}>
                       <TableCell className={tableClasses.tableCell}>
@@ -167,20 +171,23 @@ const Customers = () => {
                       </TableCell>
                       <TableCell className={tableClasses.tableCell}>
                         <>
+                        <Tooltip title="個人簡介" placement="buttom" >
                           <IconButton
                             color="primary"
                           >
                             <AccountCircleRoundedIcon />
                           </IconButton>
+                        </Tooltip> 
                         </>
                       </TableCell>
                       <TableCell className={tableClasses.tableCell}>
-                        <IconButton
-                        //   color="secondary"
-                        >
+                      <Tooltip title={ onOffDes } placement="buttom" >
+                        <IconButton>
                           <FiberManualRecordIcon
-                            style={{ color: onOffColor }} />
+                            style={{ color: onOffColor }}
+                          />
                         </IconButton>
+                      </Tooltip>  
                       </TableCell>
 
                     </TableRow>

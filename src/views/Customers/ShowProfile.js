@@ -16,49 +16,50 @@ import CardFooter from "@/components/Card/CardFooter.js";
 import avatar from "@/assets/img/faces/marc.jpg";
 
 const styles = {
-    cardCategoryWhite: {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
-    },
-    cardTitleWhite: {
-      color: "#FFFFFF",
-      marginTop: "0px",
-      minHeight: "auto",
-      fontWeight: "300",
-      fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-      marginBottom: "3px",
-      textDecoration: "none"
-    }
-  };
-  
+  cardCategoryWhite: {
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0"
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none"
+  }
+};
+
 const useStyles = makeStyles(styles);
 
-const ShowProfile = () => {
-    const classes = useStyles();
-    return(
-    <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-                <img src={avatar} alt="..." />
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don{"'"}t be scared of the truth because we need to restart the
+const ShowProfile = (customerProps) => {
+  const { firstName } = customerProps;
+  const classes = useStyles();
+  return (
+    console.log("name",customerProps),
+    < GridItem xs={12} sm={12} md={4} >
+      <Card profile>
+        <CardAvatar profile>
+          <img src={avatar} alt="..." />
+        </CardAvatar>
+        <CardBody profile>
+          <h4 className={classes.cardTitle}>{firstName}</h4>
+          <p className={classes.description}>
+            Don{"'"}t be scared of the truth because we need to restart the
                 human foundation in truth And I love you like Kanye loves Kanye
                 I love Rick Owens’ bed design but the back is...
               </p>
-              <Button color="primary" round>
-                Message
+          <Button color="primary" round>
+            Message
               </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-        );
+        </CardBody>
+      </Card>
+    </GridItem >
+  );
 }
 
 export default ShowProfile;

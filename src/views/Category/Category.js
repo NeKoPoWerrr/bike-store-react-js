@@ -20,7 +20,7 @@ import ObjectUtils from "@/utils/objectUtils";
 import { SUCCESS_CODE } from "@/services/api/base/apiResponseCode";
 import Button from "@/components/CustomButtons/Button.js";
 import CreateCategory from './CreateCategory.js'
-
+import { Tooltip } from '@material-ui/core';
 
 const styles = {
   cardCategoryWhite: {
@@ -228,6 +228,7 @@ const Category = () => {
                   <TableCell className={tableClasses.tableCell}>
                     {state.currEditCategoryId === category.id 
                       ? <>
+                      <Tooltip title="取消" placement="bottom" arrow>
                         <IconButton
                           color="secondary"
                           aria-label="Cancel"
@@ -235,6 +236,8 @@ const Category = () => {
                         >
                           <Clear />
                         </IconButton>
+                      </Tooltip>
+                      <Tooltip title="確定" placement="bottom" arrow>
                         <IconButton
                           style={{color:"green"}}
                           aria-label="Save"
@@ -242,8 +245,10 @@ const Category = () => {
                         >
                           <Check />
                         </IconButton>
+                      </Tooltip>
                       </>
                       : <>
+                      <Tooltip title="編輯" placement="bottom" arrow>
                         <IconButton
                           color="primary"
                           aria-label="Edit"
@@ -251,6 +256,8 @@ const Category = () => {
                         >
                           <Edit />
                         </IconButton>
+                      </Tooltip>
+                      <Tooltip title="刪除" placement="bottom" arrow>
                         <IconButton
                           color="secondary"
                           aria-label="Delete"
@@ -258,6 +265,7 @@ const Category = () => {
                         >
                           <Delete />
                         </IconButton>
+                      </Tooltip>  
                       </>
                       }
                   </TableCell>

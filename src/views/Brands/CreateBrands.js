@@ -7,6 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from "@/components/CustomButtons/Button.js";
 import "./CreateBrand.css";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { IconButton, Tooltip } from '@material-ui/core';
 
 const CreateBrand = (props) => {
   const [brandName, setBrandid] = useState('');
@@ -34,20 +36,23 @@ const CreateBrand = (props) => {
   return (
     <>
       <div className="createcontainer">
-        <Button 
-          color="primary"
-          round
-          onClick={handleClickOpen}
-          // style = {{float:"right"}}
-        >
-          新增品牌
-        </Button>
+        <Tooltip title="新增產品" placement="bottom" arrow>
+          <IconButton
+            color="primary"
+            onClick={handleClickOpen}
+            // style = {{float:"right"}}
+            >
+              <AddCircleIcon style={{ fontSize: 40}}/>
+          </IconButton>
+        </Tooltip>
       </div>
         <Dialog
           fullWidth={true}
           open={open}
           onClose={handleClose}
-          aria-labelledby="max-width-dialog-title">
+          aria-labelledby="max-width-dialog-title"
+          disableBackdropClick ={true}
+          >
             <DialogTitle id="form-dialog-title">
               請新增品牌
             </DialogTitle>
@@ -69,7 +74,7 @@ const CreateBrand = (props) => {
                   </Button>
                   
                   <Button onClick={handleSave} color="primary">
-                    上傳
+                    確定
                   </Button>
                 </DialogActions>
           </Dialog>
