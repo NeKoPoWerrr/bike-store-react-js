@@ -86,6 +86,34 @@ const apiFindCustomers = (data) => apiWrapper(() => {
   return getBaseAuthRequest().get(`/customers${query}`);
 })
 
+//Store
+const apiUpdateStore = (customerId, data) => apiWrapper(() => {
+  return getBaseAuthRequest().post(`/store/update/${customerId}`, data);
+})
+
+const apiGetStoreById = (customerId) => apiWrapper(() => {
+  return getBaseAuthRequest().get(`/store/${customerId}`);
+})
+
+const apiFindStore = (data) => apiWrapper(() => {
+  let query = objectToQueryParams(data);
+  return getBaseAuthRequest().get(`/stores${query}`);
+})
+
+//Staff
+// const apiUpdateStore = (customerId, data) => apiWrapper(() => {
+//   return getBaseAuthRequest().post(`/staff/update/${customerId}`, data);
+// })
+
+// const apiGetStoreById = (customerId) => apiWrapper(() => {
+//   return getBaseAuthRequest().get(`/staff/${customerId}`);
+// })
+
+// const apiFindStore = (data) => apiWrapper(() => {
+//   let query = objectToQueryParams(data);
+//   return getBaseAuthRequest().get(`/staffs${query}`);
+// })
+
 export default {
   // Login
   apiCustomerLogin,
@@ -115,4 +143,9 @@ export default {
   apiUpdateCustomer,
   apiFindCustomers,
   apiGetCustomerById,
+
+  //Store
+  apiUpdateStore,
+  apiFindStore,
+  apiGetStoreById,
 };

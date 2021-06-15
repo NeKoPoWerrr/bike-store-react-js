@@ -29,6 +29,7 @@ import Language from "@material-ui/icons/Language";
 import CustomersPage from "@/views/Customers/Customers.js"
 import CategoryPage from "@/views/Category/Category.js"
 import ProductsPage from "@/views/Products/Products.js"
+import StorePage from "@/views/Store/Store.js"
 import BrandsPage from "@/views/Brands/Brands.js";
 import DashboardPage from "@/views/Dashboard/Dashboard.js";
 import UserProfile from "@/views/UserProfile/UserProfile.js";
@@ -40,6 +41,7 @@ import NotificationsPage from "@/views/Notifications/Notifications.js";
 import UpgradeToPro from "@/views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "@/views/RTLPage/RTLPage.js";
+
 
 const dashboardRoutes = [
   {
@@ -72,6 +74,14 @@ const dashboardRoutes = [
     rtlName:"產品",
     icon: Star,
     component: ProductsPage,
+    layout:"/admin"
+  },
+  {
+    path: "/store",
+    name:"Store",
+    rtlName:"店面",
+    icon: Star,
+    component: StorePage,
     layout:"/admin"
   },
   {
