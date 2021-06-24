@@ -295,7 +295,19 @@ const sidebarStyle = theme => ({
       width: "100%",
       bottom: "13px"
     }
-  }
+  },
+  scrollbarContainer: {
+    // [theme.breakpoints.up("md")]: {
+    //   width: `calc(100% - ${drawerWidth}px)`
+    // },
+    overflow: "auto",
+    position: "relative",
+    float: "right",
+    ...transition,
+    maxHeight: "100%",
+    width: "100%",
+    overflowScrolling: "touch"
+  },
 });
 
 export default sidebarStyle;

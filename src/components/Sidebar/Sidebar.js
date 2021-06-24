@@ -14,18 +14,62 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "@/components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "@/components/Navbars/RTLNavbarLinks.js";
-
+import PerfectScrollbar from "perfect-scrollbar";
 import styles from "@/assets/jss/material-dashboard-react/components/sidebarStyle.js";
+
+import adminStyles from "@/assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 const useStyles = makeStyles(styles);
 
+const useScrollBar = (scrollbarContainerRef, setMobileOpen) => {
+  let ps;
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+  const resizeFunction = () => {
+    if (window.innerWidth >= 960) {
+      setMobileOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (scrollbarContainerRef.current === undefined || scrollbarContainerRef.current === null) {
+      return;
+    }
+    if (navigator.platform.indexOf("Win") > -1) {
+      ps = new PerfectScrollbar(scrollbarContainerRef.current, {
+        suppressScrollX: true,
+        suppressScrollY: false
+      });
+      document.body.style.overflow = "hidden";
+    }
+    window.addEventListener("resize", resizeFunction);
+    return function cleanup() {
+      if (navigator.platform.indexOf("Win") > -1) {
+        ps.destroy();
+      }
+      window.removeEventListener("resize", resizeFunction);
+    };
+  }, [scrollbarContainerRef]);
+} 
+
 export default function Sidebar(props) {
+  const rightSideBarScrollbarRef = React.createRef(null);
+  const leftSideBarScrollbarRef = React.createRef(null);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  useScrollBar(rightSideBarScrollbarRef, setMobileOpen);
+  useScrollBar(leftSideBarScrollbarRef, setMobileOpen);
+
   const classes = useStyles();
+  
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
   const { color, logo, image, logoText, routes } = props;
+
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -44,6 +88,7 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
         });
+        
         return (
           <NavLink
             to={prop.layout + prop.path}
@@ -96,6 +141,7 @@ export default function Sidebar(props) {
       </a>
     </div>
   );
+
   return (
     <div>
       <Hidden mdUp implementation="css">
@@ -114,7 +160,10 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>
+          <div
+            className={classes.sidebarWrapper + " " + classes.scrollbarContainer}
+            ref={rightSideBarScrollbarRef}
+          >
             {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
           </div>
@@ -138,7 +187,12 @@ export default function Sidebar(props) {
           }}
         >
           {brand}
-          <div className={classes.sidebarWrapper}>{links}</div>
+          <div
+            className={classes.sidebarWrapper + " " + classes.scrollbarContainer}
+            ref={leftSideBarScrollbarRef}
+          >
+            {links}
+          </div>
           {image !== undefined ? (
             <div
               className={classes.background}
