@@ -155,7 +155,7 @@ const dashboardRoutes = [
     icon: Unarchive,
     component: UpgradeToPro,
     layout: "/admin"
-  }
+  },
 ];
 
 export default dashboardRoutes;

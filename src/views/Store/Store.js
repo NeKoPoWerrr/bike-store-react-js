@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Store.css";
+import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import { useCustomState } from "@/hooks";
 import Api from "@/services/api";
@@ -32,7 +33,7 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Home } from "@material-ui/icons";
 import Pagination from '@material-ui/lab/Pagination';
-import { IconButton, Link } from "@material-ui/core";
+import { IconButton} from "@material-ui/core";
 
 const card_styles = {
   cardCategoryWhite: {
@@ -161,7 +162,7 @@ const Store = () => {
                       <div className={classes.stats}>
                          <PhoneIcon />{store.phone} 
                       </div>                       
-                         <Link  className={classes.stats} to="/admin/brands">see more</Link>           
+                         <Link to={`/admin/store/${store.id}`} className={classes.stats}>see more</Link>           
                     </CardFooter>
                   </Card>
                 </GridItem>

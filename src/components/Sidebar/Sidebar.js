@@ -27,6 +27,7 @@ const useScrollBar = (scrollbarContainerRef, setMobileOpen) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
       setMobileOpen(false);

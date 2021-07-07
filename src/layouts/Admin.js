@@ -18,10 +18,13 @@ import styles from "@/assets/jss/material-dashboard-react/layouts/adminStyle.js"
 import bgImage from "@/assets/img/sidebar-2.jpg";
 import logo from "@/assets/img/reactlogo.png";
 
+import ShowDetails from "@/views/Store/ShowDeails";
+
 let ps;
 
 const switchRoutes = (
   <Switch>
+    <Route path="/admin/store/:id" component={ShowDetails} />
     {routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
